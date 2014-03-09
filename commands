@@ -28,7 +28,7 @@ case "$1" in
   couchdb:create)
     DB_IMAGE=couchdb/$APP
     # Check if DB container is installed
-    IMAGE=$(docker images | grep "klaemo/docker-couchdb" |  awk '{print $3}')
+    IMAGE=$(docker images | grep "klaemo/couchdb" |  awk '{print $3}')
     if [[ -z $IMAGE ]]; then
         echo "couchdb image not found... Did you run 'dokku plugins-install' ?"
         exit 1
@@ -52,7 +52,7 @@ case "$1" in
         docker stop $ID > /dev/null
     fi
     # Fork DB image
-    ID=$(docker run -d klaemo/docker-couchdb exit 0)
+    ID=$(docker run -d klaemo/couchdb exit 0)
     docker wait $ID > /dev/null
     IMAGE=$(docker commit $ID)
     docker tag $IMAGE $DB_IMAGE
