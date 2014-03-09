@@ -35,7 +35,7 @@ case "$1" in
     fi
     # Check if an existing DB volume exists
     if [[ -f "$DOKKU_ROOT/.couchdb/volume_$APP" ]]; then
-        VOLUME="`cat $DOKKU_ROOT/.couchdb/volume_$APP`:/usr/local"
+        VOLUME="`cat $DOKKU_ROOT/.couchdb/volume_$APP`:/usr/local/var/lib/couchdb"
         echo
         echo "-----> Reusing couchdb/$APP database"
     else
@@ -57,7 +57,7 @@ case "$1" in
     IMAGE=$(docker commit $ID)
     docker tag $IMAGE $DB_IMAGE
     # Launch container
-    ID=$(docker run -v $VOLUME -p 5984 -d $DB_IMAGE /usr/bin/start_couchdb.sh $DB_PASSWORD)
+    ID=$(docker run -v $VOLUME -p 5984 -d $DB_IMAGE /opt/start_couch $DB_PASSWORD)
     sleep 4
     # Store persistent volume
     if [[ ! -f "$DOKKU_ROOT/.couchdb/volume_$APP" ]]; then
