@@ -69,7 +69,7 @@ case "$1" in
         echo $VOLUME_PATH > "$DOKKU_ROOT/.couchdb/volume_$APP"
     fi
     # Write port for further usage
-    PORT=$(docker port $ID 3306 | sed 's/0.0.0.0://')
+    PORT=$(docker port $ID 5984 | sed 's/0.0.0.0://')
     echo $PORT > "$DOKKU_ROOT/.couchdb/port_$APP"
     # Link to a potential existing app
     dokku couchdb:link $APP $APP
@@ -142,7 +142,7 @@ case "$1" in
         DB_PASSWORD=$(cat "$DOKKU_ROOT/.couchdb/pwd_$APP")
         PORT=$(cat "$DOKKU_ROOT/.couchdb/port_$APP")
         # Link database using dokku command
-        dokku config:set $APP "DATABASE_URL=mysql2://root:$DB_PASSWORD@172.17.42.1:$PORT/db"
+        dokku config:set $APP "DATABASE_URL=http://root:$DB_PASSWORD@172.17.42.1:$PORT/db"
         echo
         echo "-----> $APP linked to $DB_IMAGE database"
     fi
