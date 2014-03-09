@@ -1,4 +1,4 @@
-MariaDB plugin for Dokku
+CouchDB plugin for Dokku
 ------------------------
 
 Project: https://github.com/progrium/dokku
@@ -8,7 +8,7 @@ Installation
 ------------
 ```
 cd /var/lib/dokku/plugins
-git clone https://github.com/Kloadut/dokku-md-plugin mariadb
+git clone https://github.com/martin-hewitt/dokku-couchdb-plugin couchdb
 dokku plugins-install
 ```
 
@@ -17,11 +17,11 @@ Commands
 --------
 ```
 $ dokku help
-     couchdb:create <app>     Create a MariaDB container
-     couchdb:delete <app>     Delete specified MariaDB container
+     couchdb:create <app>     Create a CouchDB container
+     couchdb:delete <app>     Delete specified CouchDB container
      couchdb:info <app>       Display database informations
-     couchdb:link <app> <db>  Link an app to a MariaDB database
-     couchdb:logs <app>       Display last logs from MariaDB contain
+     couchdb:link <app> <db>  Link an app to a CouchDB database
+     couchdb:logs <app>       Display last logs from CouchDB contain
 ```
 
 Simple usage
@@ -87,7 +87,7 @@ Linking an app to a specific database:
 dokku couchdb:link foo bar
 ```
 
-MariaDB logs (per database):
+CouchDB logs (per database):
 ```
 dokku couchdb:logs foo
 ```
