@@ -151,6 +151,8 @@ case "$1" in
         PORT=$(cat "$DOKKU_ROOT/.couchdb/port_$APP")
         # Link database using dokku command
         dokku config:set $APP "COUCH_URL=http://root:$DB_PASSWORD@$DB_HOST:$PORT"
+        dokku config:set $APP "COUCH_USER=root"
+        dokku config:set $APP "COUCH_PASSWORD=$DB_PASSWORD"
         echo
         echo "-----> $APP linked to $DB_IMAGE database"
     fi
