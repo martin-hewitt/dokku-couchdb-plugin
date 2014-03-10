@@ -75,7 +75,7 @@ case "$1" in
     IP=$(docker inspect $ID | grep 'IPAddress' | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
     echo $IP > "$DOKKU_ROOT/.couchdb/ip_$APP"
     # Add root user
-    HOST="http://$IP:$PORT"
+    HOST="http://localhost:$PORT"
     echo $HOST > "$DOKKU_ROOT/.couchdb/host_$APP"
     DB_PASSWORD=$(cat "$DOKKU_ROOT/.couchdb/pwd_$APP")
     curl -X PUT $HOST/_config/admins/root -d '"$DB_PASSWORD"'
@@ -147,7 +147,7 @@ case "$1" in
             exit 1
         fi
         DB_PASSWORD=$(cat "$DOKKU_ROOT/.couchdb/pwd_$APP")
-        DB_HOST=$(cat "$DOKKU_ROOT/.couchdb/pwd_$APP")
+        DB_HOST=$(cat "$DOKKU_ROOT/.couchdb/ip_$APP")
         PORT=$(cat "$DOKKU_ROOT/.couchdb/port_$APP")
         # Link database using dokku command
         dokku config:set $APP "COUCH_URL=http://root:$DB_PASSWORD@$DB_HOST:$PORT"
